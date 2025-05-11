@@ -79,10 +79,11 @@ async def match_cv(cv: UploadFile = File(...), jobs: UploadFile = File(...)):
         for i, score in enumerate(scores):
             relative = (score / max_score) * 100 if max_score > 0 else 0
             results.append({
-                "job_snippet": job_descriptions[i].strip().split('\n')[0][:80],
-                "raw_score": round(score, 4),
-                "relative_score_percent": round(relative, 2)
-            })
+            "job_snippet": job_descriptions[i].strip().split('\n')[0][:80],
+            "raw_score": float(round(score, 4)),
+            "relative_score_percent": float(round(relative, 2))
+})
+
 
         return JSONResponse(content={"matches": results})
     
